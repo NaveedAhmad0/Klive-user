@@ -1,0 +1,130 @@
+.darkBG {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+  }
+  
+  .centered {
+    z-index: 1;
+    position: fixed;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .modal {
+    width: 850px;
+    height: 500px;
+    background: white;
+    color: white;
+    margin-left: 100px;
+    z-index: 10;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  }
+  
+  .modalHeader {
+    height: 60px;
+    background: #5D43F8;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+  
+  .heading {
+    margin: 0;
+    padding: 18px;
+    margin-left: 20px;
+    color: white;
+    font-weight: 600;
+    text-align: left !important;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  .modalContent {
+    padding-top: 50px;
+    padding-left: 40px;
+    display: flex;
+    text-align: left;
+    font-size: 14px;
+    color: #2c3e50;
+    /* text-align: center; */
+  }
+  
+  .modalActions {
+    position: absolute;
+    bottom: 32px;
+    margin-bottom: 0px;
+    /* width: 100%; */
+  }
+  
+  .actionsContainer {
+    width: 30%;
+    display: flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-left: auto;
+    /* margin-right: 130px; */
+    /* padding-right: 80px; */
+  }
+  
+  .deleteBtn {
+    width: 450px !important;
+    margin-top: 80px;
+    margin-right: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 11px 28px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    
+    border: 1px solid #F15672;
+    color: #F15672;
+    background: white;
+    transition: all 0.25s ease;
+  }
+  
+  .deleteBtn:hover {
+    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
+    transform: translateY(-5px);
+    /* background: #ff3e4e; */
+  }
+  
+  .confirmBtn {
+    margin-top: 10px;
+    margin-right: 130px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 11px 28px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    border: none;
+    color: white;
+    background: #21B967;
+    transition: all 0.25s ease;
+  }
+  
+  .confirmBtn:hover {
+    box-shadow: none;
+    transform: translateY(-5px);
+    /* background: whitesmoke; */
+  }
+
+  .key{
+    width: 30%;
+  }
+  .value{
+    width: 70%;
+    
+    /* margin-top: 3px; */
+  }
+  .value p{
+    font-weight: 600;
+    font-size:medium  ;
+    color: #5D43F8;
+  }
