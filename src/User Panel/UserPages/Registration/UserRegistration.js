@@ -18,7 +18,7 @@ const MOBILE_REGEX = /^[0-9]{10}$/;
 
 function UserRegistration() {
 	const userRef = useRef();
-	const errRef = useRef();
+	// const errRef = useRef();
 
 	const [name, setName] = useState("");
 	const [validName, setValidName] = useState(false);
@@ -39,6 +39,10 @@ function UserRegistration() {
 	const [matchPwd, setMatchPwd] = useState("");
 	const [validMatch, setValidMatch] = useState(false);
 	const [matchFocus, setMatchFocus] = useState(false);
+
+	const [checked, setChecked] = useState(false);
+	const [checkedone, setCheckedone] = useState(false);
+	const [captcha, setCaptcha] = useState(false);
 
 	const [errMsg, setErrMsg] = useState("");
 	const [success, setSuccess] = useState(false);
@@ -117,7 +121,7 @@ function UserRegistration() {
 			} else {
 				setErrMsg("Registration Failed");
 			}
-			errRef.current.focus();
+			// errRef.current.focus();
 		}
 	};
 
@@ -144,7 +148,7 @@ function UserRegistration() {
 									<div className="row">
 										<div className="col-lg-6">
 											<form>
-												{validName ? (
+												{userFocus && validName ? (
 													<FontAwesomeIcon
 														icon={faCheck}
 														className={"text-success"}
@@ -152,7 +156,7 @@ function UserRegistration() {
 												) : (
 													""
 												)}
-												{!validName ? (
+												{userFocus && !validName ? (
 													<FontAwesomeIcon
 														icon={faTimes}
 														className={"text-danger"}
@@ -179,7 +183,7 @@ function UserRegistration() {
 														placeholder="Username"
 														className={`form-control form-control-lg $ ${styles.registerInputs}`}
 													/>
-													{!validName ? (
+													{userFocus && !validName ? (
 														<p
 															id="uidnote"
 															className={
@@ -202,7 +206,7 @@ function UserRegistration() {
 										</div>
 										<div className="col-lg-6">
 											<form>
-												{validMobile ? (
+												{mobileFocus && validMobile ? (
 													<FontAwesomeIcon
 														icon={faCheck}
 														className={"text-success"}
@@ -210,7 +214,7 @@ function UserRegistration() {
 												) : (
 													""
 												)}
-												{!validMobile ? (
+												{mobileFocus && !validMobile ? (
 													<FontAwesomeIcon
 														icon={faTimes}
 														className={"text-danger"}
@@ -237,7 +241,7 @@ function UserRegistration() {
 														className={`form-control form-control-lg $ ${styles.registerInputs}`}
 														placeholder="mobile"
 													/>
-													{!validMobile ? (
+													{mobileFocus && !validMobile ? (
 														<p
 															id="uidnote"
 															className={
@@ -257,7 +261,7 @@ function UserRegistration() {
 									</div>
 									<div className="row">
 										<form className="pt-3">
-											{validEmail ? (
+											{emailFocus && validEmail ? (
 												<FontAwesomeIcon
 													icon={faCheck}
 													className={"text-success"}
@@ -265,7 +269,7 @@ function UserRegistration() {
 											) : (
 												""
 											)}
-											{!validEmail ? (
+											{emailFocus && !validEmail ? (
 												<FontAwesomeIcon
 													icon={faTimes}
 													className={"text-danger"}
@@ -289,7 +293,7 @@ function UserRegistration() {
 													className={`form-control form-control-lg $ ${styles.registerInputs}`}
 													placeholder="Email"
 												/>
-												{!validEmail ? (
+												{emailFocus && !validEmail ? (
 													<p
 														id="uidnote"
 														className={
@@ -309,7 +313,7 @@ function UserRegistration() {
 									<div className="row">
 										<div className="col-lg-6">
 											<form className="pt-3">
-												{validPwd ? (
+												{pwdFocus && validPwd ? (
 													<FontAwesomeIcon
 														icon={faCheck}
 														className={"text-success"}
@@ -317,7 +321,7 @@ function UserRegistration() {
 												) : (
 													""
 												)}
-												{!validPwd ? (
+												{pwdFocus && !validPwd ? (
 													<FontAwesomeIcon
 														icon={faTimes}
 														className={"text-danger"}
@@ -342,7 +346,7 @@ function UserRegistration() {
 														className={`form-control form-control-lg $ ${styles.registerInputs}`}
 														placeholder="Password"
 													/>
-													{!validPwd ? (
+													{pwdFocus && !validPwd ? (
 														<p
 															id="uidnote"
 															className={
@@ -367,7 +371,7 @@ function UserRegistration() {
 										</div>
 										<div className="col-lg-6">
 											<form className="pt-3">
-												{validMatch ? (
+												{matchFocus && validMatch ? (
 													<FontAwesomeIcon
 														icon={faCheck}
 														className={"text-success"}
@@ -375,7 +379,7 @@ function UserRegistration() {
 												) : (
 													""
 												)}
-												{!validMatch ? (
+												{matchFocus && !validMatch ? (
 													<FontAwesomeIcon
 														icon={faTimes}
 														className={"text-danger"}
@@ -400,7 +404,7 @@ function UserRegistration() {
 														className={`form-control form-control-lg $ ${styles.registerInputs}`}
 														placeholder="Confirm Password"
 													/>
-													{!validMatch ? (
+													{matchFocus && !validMatch ? (
 														<p className="text-danger">
 															{" "}
 															Paswwords do not match
@@ -418,6 +422,9 @@ function UserRegistration() {
 												<ReCAPTCHA
 													sitekey="6Lf49RIiAAAAAHf6c0KwqiT2RTnQp2D_UWj07Y-x"
 													onChange={(value) => {
+														if (value) {
+															setCaptcha(true);
+														}
 														console.log("Captcha Value", value);
 													}}
 												/>
@@ -428,6 +435,10 @@ function UserRegistration() {
 														<input
 															type="checkbox"
 															className="form-check-input"
+															onChange={() => {
+																setCheckedone(!checkedone);
+															}}
+															value={checkedone}
 														/>
 														<i className="input-helper"></i>I read and agree to
 														terms and conditions.
@@ -440,6 +451,15 @@ function UserRegistration() {
 														<input
 															type="checkbox"
 															className="form-check-input"
+															onChange={(e) => {
+																setChecked(!checked);
+																// if (e.target.checked) {
+																// 	console.log("checkd", checked);
+																// } else {
+																// 	console.log("uncheckd", checked);
+																// }
+															}}
+															value={checked}
 														/>
 														<i className="input-helper"></i>I agreed to read and
 														acknowledged to the company’s Privacy policy, terms
@@ -460,7 +480,10 @@ function UserRegistration() {
 													!validPwd ||
 													!validMobile ||
 													!validEmail ||
-													!validMatch
+													!validMatch ||
+													checked === false ||
+													checkedone === false ||
+													!captcha
 														? true
 														: false
 												}
