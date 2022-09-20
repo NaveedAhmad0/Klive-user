@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
+import styles from "./registration.module.css";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import API from "../../../backend";
 import UserLogin from "./UserLogin";
 import {
 	faCheck,
@@ -9,6 +10,7 @@ import {
 	faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
@@ -127,120 +129,134 @@ function UserRegistration() {
 				<div>
 					<div className="d-flex align-items-center auth px-0">
 						<div className="row w-100 mx-0">
-							<div className="col-lg-6 mx-auto">
+							<div className="col-lg-10 mx-auto">
 								<div className="auth-form-light text-left py-5 px-4 px-sm-5">
-									<div className="brand-logo">
-										<img
-											src={require("../../../assets/images/logo.svg")}
-											alt="logo"
-										/>
-									</div>
-									<p
+									{/* <p
 										ref={errRef}
 										className={errMsg ? "errmsg" : "offscreen"}
 										aria-live="assertive">
 										{errMsg}
-									</p>
-									<h4 className="text-primary">User Register</h4>
+									</p> */}
+									<h2 className="text-primary font-weight-bolder mb-5 text-center">
+										User Register
+									</h2>
 
-									<form className="pt-3">
-										<div className="form-group">
-											{validName ? (
-												<FontAwesomeIcon
-													icon={faCheck}
-													className={"text-success"}
-												/>
-											) : (
-												""
-											)}
-											{!validName ? (
-												<FontAwesomeIcon
-													icon={faTimes}
-													className={"text-danger"}
-												/>
-											) : (
-												""
-											)}
-											<input
-												type="text"
-												id="username"
-												ref={userRef}
-												autoComplete="off"
-												onChange={(e) => setName(e.target.value)}
-												value={name}
-												required
-												aria-invalid={validName ? "false" : "true"}
-												aria-describedby="uidnote"
-												onFocus={() => setUserFocus(true)}
-												onBlur={() => setUserFocus(false)}
-												placeholder="Username"
-												className="form-control form-control-lg"
-											/>
-											{!validName ? (
-												<p
-													id="uidnote"
-													className={
-														userFocus && name && !validName
-															? "instructions"
-															: "offscreen"
-													}>
-													<FontAwesomeIcon icon={faInfoCircle} />
-													4 to 24 characters.
-													<br />
-													Must begin with a letter.
-													<br />
-													Letters, numbers, underscores, hyphens allowed.
-												</p>
-											) : (
-												""
-											)}
+									<div className="row">
+										<div className="col-lg-6">
+											<form>
+												{validName ? (
+													<FontAwesomeIcon
+														icon={faCheck}
+														className={"text-success"}
+													/>
+												) : (
+													""
+												)}
+												{!validName ? (
+													<FontAwesomeIcon
+														icon={faTimes}
+														className={"text-danger"}
+													/>
+												) : (
+													""
+												)}
+												<div className="form-group">
+													<label className={`${styles.registerLabel}`}>
+														User Name *
+													</label>
+													<input
+														type="text"
+														id="username"
+														ref={userRef}
+														autoComplete="off"
+														onChange={(e) => setName(e.target.value)}
+														value={name}
+														required
+														aria-invalid={validName ? "false" : "true"}
+														aria-describedby="uidnote"
+														onFocus={() => setUserFocus(true)}
+														onBlur={() => setUserFocus(false)}
+														placeholder="Username"
+														className={`form-control form-control-lg $ ${styles.registerInputs}`}
+													/>
+													{!validName ? (
+														<p
+															id="uidnote"
+															className={
+																userFocus && name && !validName
+																	? "instructions"
+																	: "offscreen"
+															}>
+															<FontAwesomeIcon icon={faInfoCircle} />
+															4 to 24 characters.
+															<br />
+															Must begin with a letter.
+															<br />
+															Letters, numbers, underscores, hyphens allowed.
+														</p>
+													) : (
+														""
+													)}
+												</div>
+											</form>
 										</div>
-										<div className="form-group">
-											{validMobile ? (
-												<FontAwesomeIcon
-													icon={faCheck}
-													className={"text-success"}
-												/>
-											) : (
-												""
-											)}
-											{!validMobile ? (
-												<FontAwesomeIcon
-													icon={faTimes}
-													className={"text-danger"}
-												/>
-											) : (
-												""
-											)}
-											<input
-												type="number"
-												id="mobileNumber"
-												onChange={(e) => setMobile(parseInt(e.target.value))}
-												value={mobile}
-												pattern="[0-9]*"
-												aria-invalid={validMobile ? "false" : "true"}
-												required
-												onFocus={() => setMobileFocus(true)}
-												onBlur={() => setMobileFocus(false)}
-												className="form-control form-control-lg"
-												placeholder="mobile"
-											/>
-											{!validMobile ? (
-												<p
-													id="uidnote"
-													className={
-														mobileFocus && mobile && !validMobile
-															? "instructions"
-															: "offscreen"
-													}>
-													<FontAwesomeIcon icon={faInfoCircle} />
-													must be 10 digits.
-												</p>
-											) : (
-												""
-											)}
+										<div className="col-lg-6">
+											<form>
+												{validMobile ? (
+													<FontAwesomeIcon
+														icon={faCheck}
+														className={"text-success"}
+													/>
+												) : (
+													""
+												)}
+												{!validMobile ? (
+													<FontAwesomeIcon
+														icon={faTimes}
+														className={"text-danger"}
+													/>
+												) : (
+													""
+												)}
+												<div className="form-group">
+													<label className={`${styles.registerLabel}`}>
+														Mobile Number *
+													</label>
+													<input
+														type="number"
+														id="mobileNumber"
+														onChange={(e) =>
+															setMobile(parseInt(e.target.value))
+														}
+														value={mobile}
+														pattern="[0-9]*"
+														aria-invalid={validMobile ? "false" : "true"}
+														required
+														onFocus={() => setMobileFocus(true)}
+														onBlur={() => setMobileFocus(false)}
+														className={`form-control form-control-lg $ ${styles.registerInputs}`}
+														placeholder="mobile"
+													/>
+													{!validMobile ? (
+														<p
+															id="uidnote"
+															className={
+																mobileFocus && mobile && !validMobile
+																	? "instructions"
+																	: "offscreen"
+															}>
+															<FontAwesomeIcon icon={faInfoCircle} />
+															must be 10 digits.
+														</p>
+													) : (
+														""
+													)}
+												</div>
+											</form>
 										</div>
-										<div className="form-group">
+									</div>
+									<div className="row">
+										<form className="pt-3">
 											{validEmail ? (
 												<FontAwesomeIcon
 													icon={faCheck}
@@ -257,113 +273,183 @@ function UserRegistration() {
 											) : (
 												""
 											)}
-											<input
-												type="email"
-												id="email"
-												onChange={(e) => setEmail(e.target.value)}
-												value={email}
-												aria-invalid={validEmail ? "false" : "true"}
-												required
-												onFocus={() => setEmailFocus(true)}
-												onBlur={() => setEmailFocus(false)}
-												className="form-control form-control-lg"
-												placeholder="Email"
-											/>
-											{!validEmail ? (
-												<p
-													id="uidnote"
-													className={
-														emailFocus && email && !validEmail
-															? "instructions"
-															: "offscreen"
-													}>
-													<FontAwesomeIcon icon={faInfoCircle} />
-													must be a proper email address.
-												</p>
-											) : (
-												""
-											)}
-										</div>
-										<div className="form-group">
-											{validPwd ? (
-												<FontAwesomeIcon
-													icon={faCheck}
-													className={"text-success"}
-												/>
-											) : (
-												""
-											)}
-											{!validPwd ? (
-												<FontAwesomeIcon
-													icon={faTimes}
-													className={"text-danger"}
-												/>
-											) : (
-												""
-											)}
-											<input
-												type="password"
-												id="password"
-												onChange={(e) => setPassword(e.target.value)}
-												value={password}
-												required
-												aria-invalid={validPwd ? "false" : "true"}
-												aria-describedby="pwdnote"
-												onFocus={() => setPwdFocus(true)}
-												onBlur={() => setPwdFocus(false)}
-												className="form-control form-control-lg"
-												placeholder="Password"
-											/>
-											{!validPwd ? (
-												<p
-													id="uidnote"
-													className={
-														userFocus && name && !validPwd
-															? "instructions"
-															: "offscreen"
-													}>
-													<FontAwesomeIcon icon={faInfoCircle} />
-													Must contain a capital letter.
-													<br />
-													Must container a small letter.
-													<br />
-													Must container a number
-													<br />
-													Must container a special letter(! @ # $ % ).
-												</p>
-											) : (
-												""
-											)}
-										</div>
-										<div className="form-group">
-											<input
-												type="password"
-												id="Confirm-password"
-												onChange={(e) => setMatchPwd(e.target.value)}
-												value={matchPwd}
-												required
-												aria-invalid={validMatch ? "false" : "true"}
-												aria-describedby="confirmnote"
-												onFocus={() => setMatchFocus(true)}
-												onBlur={() => setMatchFocus(false)}
-												className="form-control form-control-lg"
-												placeholder="Confirm Password"
-											/>
-											{!validMatch ? (
-												<p className="text-danger"> Paswwords do not match</p>
-											) : (
-												""
-											)}
-										</div>
-										<div className="mb-4">
-											<div className="form-check">
-												<label className="form-check-label text-muted">
-													<input type="checkbox" className="form-check-input" />
-													<i className="input-helper"></i>I agree to all Terms &
-													Conditions
+											<div className="form-group">
+												<label className={`${styles.registerLabel}`}>
+													Email Address
 												</label>
+												<input
+													type="email"
+													id="email"
+													onChange={(e) => setEmail(e.target.value)}
+													value={email}
+													aria-invalid={validEmail ? "false" : "true"}
+													required
+													onFocus={() => setEmailFocus(true)}
+													onBlur={() => setEmailFocus(false)}
+													className={`form-control form-control-lg $ ${styles.registerInputs}`}
+													placeholder="Email"
+												/>
+												{!validEmail ? (
+													<p
+														id="uidnote"
+														className={
+															emailFocus && email && !validEmail
+																? "instructions"
+																: "offscreen"
+														}>
+														<FontAwesomeIcon icon={faInfoCircle} />
+														must be a proper email address.
+													</p>
+												) : (
+													""
+												)}
 											</div>
+										</form>
+									</div>
+									<div className="row">
+										<div className="col-lg-6">
+											<form className="pt-3">
+												{validPwd ? (
+													<FontAwesomeIcon
+														icon={faCheck}
+														className={"text-success"}
+													/>
+												) : (
+													""
+												)}
+												{!validPwd ? (
+													<FontAwesomeIcon
+														icon={faTimes}
+														className={"text-danger"}
+													/>
+												) : (
+													""
+												)}
+												<div className="form-group">
+													<label className={`${styles.registerLabel}`}>
+														Password *
+													</label>
+													<input
+														type="password"
+														id="password"
+														onChange={(e) => setPassword(e.target.value)}
+														value={password}
+														required
+														aria-invalid={validPwd ? "false" : "true"}
+														aria-describedby="pwdnote"
+														onFocus={() => setPwdFocus(true)}
+														onBlur={() => setPwdFocus(false)}
+														className={`form-control form-control-lg $ ${styles.registerInputs}`}
+														placeholder="Password"
+													/>
+													{!validPwd ? (
+														<p
+															id="uidnote"
+															className={
+																userFocus && name && !validPwd
+																	? "instructions"
+																	: "offscreen"
+															}>
+															<FontAwesomeIcon icon={faInfoCircle} />
+															Must contain a capital letter.
+															<br />
+															Must container a small letter.
+															<br />
+															Must container a number
+															<br />
+															Must container a special letter(! @ # $ % ).
+														</p>
+													) : (
+														""
+													)}
+												</div>
+											</form>
 										</div>
+										<div className="col-lg-6">
+											<form className="pt-3">
+												{validMatch ? (
+													<FontAwesomeIcon
+														icon={faCheck}
+														className={"text-success"}
+													/>
+												) : (
+													""
+												)}
+												{!validMatch ? (
+													<FontAwesomeIcon
+														icon={faTimes}
+														className={"text-danger"}
+													/>
+												) : (
+													""
+												)}
+												<div className="form-group">
+													<label className={`${styles.registerLabel}`}>
+														ConfirmPassword *
+													</label>
+													<input
+														type="password"
+														id="Confirm-password"
+														onChange={(e) => setMatchPwd(e.target.value)}
+														value={matchPwd}
+														required
+														aria-invalid={validMatch ? "false" : "true"}
+														aria-describedby="confirmnote"
+														onFocus={() => setMatchFocus(true)}
+														onBlur={() => setMatchFocus(false)}
+														className={`form-control form-control-lg $ ${styles.registerInputs}`}
+														placeholder="Confirm Password"
+													/>
+													{!validMatch ? (
+														<p className="text-danger">
+															{" "}
+															Paswwords do not match
+														</p>
+													) : (
+														""
+													)}
+												</div>
+											</form>
+										</div>
+									</div>
+									<div className="row">
+										<form className="pt-3">
+											<div className="form-group">
+												<ReCAPTCHA
+													sitekey="6Lf49RIiAAAAAHf6c0KwqiT2RTnQp2D_UWj07Y-x"
+													onChange={(value) => {
+														console.log("Captcha Value", value);
+													}}
+												/>
+											</div>
+											<div className="mb-4">
+												<div className="form-check">
+													<label className="form-check-label text-muted">
+														<input
+															type="checkbox"
+															className="form-check-input"
+														/>
+														<i className="input-helper"></i>I read and agree to
+														terms and conditions.
+													</label>
+												</div>
+											</div>
+											<div className="mb-4">
+												<div className="form-check">
+													<label className="form-check-label text-muted">
+														<input
+															type="checkbox"
+															className="form-check-input"
+														/>
+														<i className="input-helper"></i>I agreed to read and
+														acknowledged to the company’s Privacy policy, terms
+														and conditions.
+													</label>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div className="row">
 										<div className="mt-3">
 											<button
 												// type="submit"
@@ -378,19 +464,19 @@ function UserRegistration() {
 														? true
 														: false
 												}
-												className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+												className={`btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn ${styles.registerBtn}`}>
 												{/* <Link to="/merchant/dashboard" className="text-white"> */}
 												SIGN UP
 												{/* </Link> */}
 											</button>
 										</div>
-										<div className="text-center mt-4 font-weight-light">
-											Already have an account?{" "}
-											<Link to="/user-pages/login" className="text-primary">
-												Login
-											</Link>
-										</div>
-									</form>
+									</div>
+									<div className="text-left mt-4 font-weight-light">
+										Already have an account?{" "}
+										<Link to="/user-pages/login" className="text-primary">
+											Login
+										</Link>
+									</div>
 								</div>
 							</div>
 						</div>

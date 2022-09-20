@@ -63,6 +63,7 @@
 		"react-dropzone": "^10.1.9",
 		"react-gauge-chart": "^0.2.1",
 		"react-google-charts": "^3.0.15",
+		"react-google-recaptcha": "^2.1.0",
 		"react-grid-gallery": "^0.5.5",
 		"react-i18next": "^11.2.0",
 		"react-icons": "^4.4.0",
