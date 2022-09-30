@@ -3,17 +3,20 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const ResetPassword = () => {
-	const [email, setEmail] = useState("");
 	const [newPassword, setNewPassword] = useState("");
+	const [oldpassword, setOldPassword] = useState("");
+	const [matchPassword, setMatchPassword] = useState("");
 	const [success, setSuccess] = useState(false);
+
+	const resetMail = localStorage.getItem("email");
 
 	async function onSubmit(event) {
 		event.preventDefault();
-		console.log(email, newPassword);
+		console.log(oldpassword, newPassword);
 
 		try {
 			const response = await axios.patch(
-				`https://backend.klivepay.com/api/user/forget-password?email=${email}`,
+				`https://backend.klivepay.com/api/user/reset-password?email=${resetMail}.com&oldpassword=${oldpassword}`,
 				JSON.stringify({ newPassword }),
 				{
 					headers: { "Content-Type": "application/json" },
@@ -21,18 +24,21 @@ const ResetPassword = () => {
 				}
 			);
 
-			console.log("mail", email);
+			console.log("mail", oldpassword);
 
 			console.log(JSON.stringify(response?.data));
 
 			// const accessToken = response?.data?.accessToken;
 			// localStorage.setItem("token", response?.data?.accessToken);
-			setEmail("");
+			setOldPassword("");
 			setNewPassword("");
 			setSuccess(true);
 		} catch (err) {
-			console.log(err);
-			console.log(email);
+			if (oldpassword !== newPassword) {
+				console.log(err);
+				console.log("Password dont match");
+			}
+			console.log(oldpassword);
 		}
 		console.log(success);
 	}
@@ -41,6 +47,11 @@ const ResetPassword = () => {
 			alert("You have registered Succesfully!");
 		}
 	}, [success]);
+	useEffect(() => {
+		if (newPassword !== matchPassword) {
+			alert("Unmatched");
+		}
+	}, []);
 	return (
 		<div>
 			<div className="d-flex align-items-center auth px-0">
@@ -51,11 +62,11 @@ const ResetPassword = () => {
 							<form className="pt-3">
 								<div className="form-group">
 									<input
-										type="email"
+										type="password"
 										className="form-control form-control-lg"
 										id="exampleInputEmail1"
-										onChange={(e) => setEmail(e.target.value)}
-										value={email}
+										onChange={(e) => setOldPassword(e.target.value)}
+										value={oldpassword}
 										placeholder="Old Password"
 									/>
 								</div>
@@ -64,8 +75,8 @@ const ResetPassword = () => {
 										type="email"
 										className="form-control form-control-lg"
 										id="exampleInputEmail1"
-										onChange={(e) => setEmail(e.target.value)}
-										value={email}
+										onChange={(e) => setNewPassword(e.target.value)}
+										value={newPassword}
 										placeholder="New password"
 									/>
 								</div>
@@ -74,9 +85,9 @@ const ResetPassword = () => {
 										type="password"
 										className="form-control form-control-lg"
 										id="password"
-										placeholder="New Password"
-										onChange={(e) => setNewPassword(e.target.value)}
-										value={newPassword}
+										placeholder="Old Password"
+										onChange={(e) => setMatchPassword(e.target.value)}
+										value={matchPassword}
 									/>
 								</div>
 

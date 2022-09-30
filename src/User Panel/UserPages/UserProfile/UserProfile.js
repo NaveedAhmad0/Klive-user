@@ -420,7 +420,7 @@ const UserProfile = () => {
 							<div className="form-group">
 								<label className={styles.userLabel}>year of birth</label>
 								<input
-									type="year"
+									type="number"
 									name="yearOfBirth"
 									onChange={(e) => {
 										setShowData({
@@ -446,7 +446,7 @@ const UserProfile = () => {
 							<div className="form-group">
 								<label className={styles.userLabel}>month of birth</label>
 								<input
-									type="month"
+									type="number"
 									name="monthOfBirth"
 									onChange={(e) => {
 										setShowData({
@@ -472,7 +472,7 @@ const UserProfile = () => {
 							<div className="form-group">
 								<label className={styles.userLabel}>day of birth</label>
 								<input
-									type="day"
+									type="number"
 									name="dayOfBirth"
 									onChange={(e) => {
 										setShowData({
