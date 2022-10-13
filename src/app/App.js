@@ -11,7 +11,7 @@ import Footer from "./shared/Footer";
 import { withTranslation } from "react-i18next";
 import userContext from "../context/userContext";
 import UserSidebar from "../User Panel/UserPanelComponents/User-Sidebar/UserSidebar";
-
+require("dotenv").config();
 function App(props) {
 	const [isFullPageLayout, setisFullPageLayout] = useState(false);
 	const { isAdmin, isMerchant, isUser } = useContext(userContext);

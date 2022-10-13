@@ -66,6 +66,10 @@ const DepositeToMerchandise = lazy(() =>
 const UserWithdraw = lazy(() =>
 	import("../User Panel/UserPages/UserWithdraw/UserWithdraw")
 );
+
+const UserMerchantDetails = lazy(() =>
+	import("../User Panel/UserPages/DepositeToMerchandise/UserMerchantDetails")
+);
 // -------------------------------- MERCHANT PANEL IMPORTS ---------------------------------------------
 
 class AppRoutes extends Component {
@@ -126,6 +130,12 @@ class AppRoutes extends Component {
 					/>
 
 					<Route exact path="/user/UserWithdraw" component={UserWithdraw} />
+
+					<Route
+						exact
+						path="/user/user-merchant-datails"
+						component={UserMerchantDetails}
+					/>
 
 					{/*---------------------------- ERROR PAGE ------------------ */}
 
