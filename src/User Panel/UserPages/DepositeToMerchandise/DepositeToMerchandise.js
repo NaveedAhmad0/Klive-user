@@ -44,6 +44,7 @@ const DepositsToMerchant = () => {
 								redemptiondate: response.data[i].email,
 							});
 						}
+						console.log("reached");
 						setItems(sample);
 
 						// console.log(response.data[3].id);
