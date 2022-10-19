@@ -43,8 +43,8 @@ const DepositsToMerchant = () => {
 								branchredeem: response.data[i].email,
 								redemptiondate: response.data[i].email,
 							});
+							console.log("res", response.data[i]);
 						}
-						console.log("reached");
 						setItems(sample);
 
 						// console.log(response.data[3].id);
@@ -106,9 +106,9 @@ const DepositsToMerchant = () => {
 		return (
 			<h5>
 				{/* <Link to="/admin/getUserProfile"> */}
-				<h6
+				<button
 					alt="issueimageload"
-					className="cursor-pointer"
+					className="cursor-pointer btn btn-success"
 					// src={Edit}
 					onClick={() => {
 						// eslint-disable-next-line no-restricted-globals
@@ -119,7 +119,7 @@ const DepositsToMerchant = () => {
 						// console.log(row.email);
 					}}>
 					view
-				</h6>
+				</button>
 				{/* </Link> */}
 			</h5>
 		);
@@ -147,13 +147,13 @@ const DepositsToMerchant = () => {
 											search>
 											{(props) => (
 												<div>
-													<h3>Input something at below input field:</h3>
+													{/* <h3>Inputt something at below input field:</h3> */}
 													<SearchBar
 														{...props.searchProps}
 														className="custome-search-field"
 														style={{ color: "white" }}
 														delay={500}
-														placeholder="Search Something!!!"
+														placeholder="Search..."
 													/>
 													<hr />
 													<BootstrapTable
