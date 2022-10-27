@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function UserLogin() {
+	const [loading, setLoading] = useState(true);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [success, setSuccess] = useState(false);
@@ -38,6 +40,10 @@ function UserLogin() {
 			setEmail("");
 			setPassword("");
 			setSuccess(true);
+			setLoading(false);
+			setTimeout(() => {
+				setLoading(false);
+			}, 3000);
 		} catch (err) {
 			if (!err?.response) {
 				setErrMsg("No Server Response");
