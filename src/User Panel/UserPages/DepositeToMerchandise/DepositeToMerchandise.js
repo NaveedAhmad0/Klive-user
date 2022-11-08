@@ -37,10 +37,17 @@ const DepositsToMerchant = () => {
 						for (let i = 0; i < response.data.length; i += 1) {
 							sample.push({
 								id: response.data[i].id,
-								FirstName: response.data[i].name,
+								QR: (
+									<img
+										src={`data:image/png;base64,${response.data[i].qrImage}`}
+										alt="QR"
+										width={190}
+										style={{ borderRadius: "0" }}
+									/>
+								),
 								email: response.data[i].email,
-								status: response.data[i].mobile,
-								branchredeem: response.data[i].email,
+								mobile: response.data[i].mobile,
+								status: response.data[i].status,
 								redemptiondate: response.data[i].email,
 							});
 							console.log("res", response.data[i]);
@@ -68,8 +75,8 @@ const DepositsToMerchant = () => {
 			headerClasses: "deal-header",
 		},
 		{
-			dataField: "FirstName",
-			text: "First Name",
+			dataField: "QR",
+			text: "QR Code",
 			classes: "deal-row-2",
 
 			headerClasses: "deal-header",
@@ -82,14 +89,14 @@ const DepositsToMerchant = () => {
 			headerClasses: "deal-header",
 		},
 		{
-			dataField: "status",
+			dataField: "mobile",
 			text: "Mobile",
 			classes: "deal-row",
 			headerClasses: "deal-header",
 		},
 		{
-			dataField: "branchredeem",
-			text: "Branch redeemed",
+			dataField: "status",
+			text: "Status",
 			headerClasses: "deal-header",
 		},
 		{

@@ -122,7 +122,7 @@ function UserMerchantDetails() {
 						<br />
 						<div className="card" id="cardmerchant">
 							<div className="card-body">
-								<table className="table" id="tablebodyrow">
+								{/* <table className="table" id="tablebodyrow">
 									<thead>
 										<tr>
 											<th scope="col" className="tablenone">
@@ -172,7 +172,19 @@ function UserMerchantDetails() {
 											</td>
 										</tr>
 									</tbody>
-								</table>
+								</table> */}
+								<div className="d-flex justify-content-between">
+									<div>
+										<label>Total Amount</label>
+										<br />
+										<p>{showData.totalamount}</p>
+									</div>
+									<div>
+										<label>QR Expiry Date</label>
+										<br />
+										<p>{showData.expirydate}</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

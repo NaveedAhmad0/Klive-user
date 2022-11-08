@@ -166,7 +166,7 @@ const Navbar = () => {
 									onClick={(evt) => {
 										evt.preventDefault();
 										localStorage.clear();
-										history.push("/admin/user/Registration/UserLogin");
+										history.push("/user/login");
 									}}>
 									<Trans>Sign Out</Trans>
 								</Dropdown.Item>
