@@ -30,7 +30,7 @@ const DepositsToMerchant = () => {
 		const getUserDetails = async () => {
 			try {
 				await axios
-					.get(`${API}/user/deposit-to-merchants?email=${loginMail}`)
+					.get(`${API}/user/ListOfInvoice?email=${loginMail}`)
 					.then((response) => {
 						const sample = [];
 
@@ -45,7 +45,7 @@ const DepositsToMerchant = () => {
 										style={{ borderRadius: "0" }}
 									/>
 								),
-								email: response.data[i].email,
+								email: response.data[i].billFrom,
 								mobile: response.data[i].mobile,
 								status: response.data[i].status,
 								redemptiondate: response.data[i].email,
@@ -163,11 +163,17 @@ const DepositsToMerchant = () => {
 														placeholder="Search..."
 													/>
 													<hr />
-													<BootstrapTable
-														{...props.baseProps}
-														headerClasses={{ backgroundColor: "red" }}
-														pagination={paginationFactory(options)}
-													/>
+													{ittems.length > 0 ? (
+														<BootstrapTable
+															{...props.baseProps}
+															headerClasses={{ backgroundColor: "red" }}
+															pagination={paginationFactory(options)}
+														/>
+													) : (
+														<h4 className="text-danger text-center">
+															No Invoices
+														</h4>
+													)}
 												</div>
 											)}
 										</ToolkitProvider>

@@ -1268,11 +1268,11 @@ const UserProfile = () => {
 									<div className="form-group">
 										<label className={styles.userLabel}>bank account</label>
 										<input
-											type="text"
+											type="number"
 											onChange={(e) => {
 												setShowData({
 													...showData,
-													bankAccount: e.target.value,
+													bankAccount: parseInt(e.target.value),
 												});
 											}}
 											value={showData.bankAccount}

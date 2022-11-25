@@ -32,27 +32,25 @@ function UserMerchantDetails() {
 
 	useEffect(() => {
 		axios.get(`${API}/merchant/invoice-details/${invoiceId}`).then((res) => {
-			for (let i = 0; i < res.data.length; i++) {
-				setShowData({
-					email: res.data[i].email,
-					invoiceRefId: res.data[i].invoiceRefId,
-					mobile: res.data[i].mobile,
-					billTo: res.data[i].billTo,
-					billFrom: res.data[i].billFrom,
-					status: res.data[i].status,
-					customer: res.data[i].customer,
-					createdAt: res.data[i].createdAt,
-					amount: res.data[i].amount,
-					items: res.data[i].item,
-					// item: res.data[i].item,
-					quantity: res.data[i].quantity,
-					totalamount: res.data[i].totalamount,
-					expirydate: res.data[i].expirydate,
-					qrImage: res.data[i].qrImage,
-					// notes: res.data[i].note,
-				});
-				console.log("DATA IS ", res.data[i]);
-			}
+			setShowData({
+				email: res.data.email,
+				invoiceRefId: res.data.invoiceRefId,
+				mobile: res.data.mobile,
+				billTo: res.data.billTo,
+				billFrom: res.data.billFrom,
+				status: res.data.status,
+				customer: res.data.customer,
+				createdAt: res.data.createdAt,
+				amount: res.data.amount,
+				items: res.data.item,
+				// item: res.data.item,
+				quantity: res.data.quantity,
+				totalamount: res.data.totalamount,
+				expirydate: res.data.expirydate,
+				qrImage: res.data.qrImage,
+				// notes: res.data.note,
+			});
+			console.log("DATA IS ", res.data);
 		});
 	}, []);
 

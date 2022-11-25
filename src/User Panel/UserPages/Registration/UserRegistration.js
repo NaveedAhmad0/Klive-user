@@ -95,14 +95,26 @@ function UserRegistration() {
 			return;
 		}
 		try {
-			const response = await axios.post(
-				"https://backend.klivepay.com/api/user/register",
-				JSON.stringify({ name, mobile, email, password }),
-				{
-					headers: { "Content-Type": "application/json" },
-					// withCredentials: true
-				}
-			);
+			const response = await axios
+				.post(
+					"https://backend.klivepay.com/api/user/register",
+					JSON.stringify({
+						name,
+						mobile,
+						email,
+						password,
+						typeOfStreem: "web",
+					}),
+					{
+						headers: { "Content-Type": "application/json" },
+						// withCredentials: true
+					}
+				)
+				.then((res) => {
+					if (res.status === 201) {
+						alert("User Registered Successfully !");
+					}
+				});
 			console.log(response?.data);
 			// console.log(response?.accessToken);
 			console.log(JSON.stringify(response));
@@ -150,7 +162,7 @@ function UserRegistration() {
 											<form>
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														User Name *{" "}
+														User Name <span className="text-danger">*</span>{" "}
 														{userFocus && validName ? (
 															<FontAwesomeIcon
 																icon={faCheck}
@@ -208,7 +220,8 @@ function UserRegistration() {
 											<form>
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														Mobile Number * {""}
+														Mobile Number <span className="text-danger">*</span>
+														{""}
 														{mobileFocus && validMobile ? (
 															<FontAwesomeIcon
 																icon={faCheck}
@@ -263,7 +276,7 @@ function UserRegistration() {
 										<form className="pt-3">
 											<div className="form-group">
 												<label className={`${styles.registerLabel}`}>
-													Email Address{" "}
+													Email Address <span className="text-danger">*</span>{" "}
 													{emailFocus && validEmail ? (
 														<FontAwesomeIcon
 															icon={faCheck}
@@ -315,7 +328,7 @@ function UserRegistration() {
 											<form className="pt-3">
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														Password *{" "}
+														Password <span className="text-danger">*</span>{" "}
 														{pwdFocus && validPwd ? (
 															<FontAwesomeIcon
 																icon={faCheck}
@@ -373,7 +386,8 @@ function UserRegistration() {
 											<form className="pt-3">
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														ConfirmPassword *{" "}
+														Confirm Password {""}
+														<span className="text-danger">*</span>{" "}
 														{matchFocus && validMatch ? (
 															<FontAwesomeIcon
 																icon={faCheck}
