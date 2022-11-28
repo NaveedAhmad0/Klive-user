@@ -112,7 +112,7 @@ function UserRegistration() {
 				)
 				.then((res) => {
 					if (res.status === 201) {
-						alert("User Registered Successfully !");
+						alert(res.data.message);
 					}
 				});
 			console.log(response?.data);
