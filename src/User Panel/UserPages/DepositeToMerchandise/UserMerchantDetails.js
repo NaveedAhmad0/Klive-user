@@ -32,13 +32,14 @@ function UserMerchantDetails() {
 
 	useEffect(() => {
 		axios.get(`${API}/merchant/invoice-details/${invoiceId}`).then((res) => {
+			console.log("res", res);
 			setShowData({
 				email: res.data.email,
 				invoiceRefId: res.data.invoiceRefId,
 				mobile: res.data.mobile,
 				billTo: res.data.billTo,
 				billFrom: res.data.billFrom,
-				status: res.data.status,
+				status: res.data.status === true ? "Complete" : "Pending",
 				customer: res.data.customer,
 				createdAt: res.data.createdAt,
 				amount: res.data.amount,
@@ -79,15 +80,8 @@ function UserMerchantDetails() {
 											<span className="text-muted">{showData.createdAt}</span>
 										</div>
 										<br />
-										<p className="heading ">
-											Status :
-											<span className="text-muted">{showData.status}</span>
-										</p>
-										<br />
-										<p className="heading">
-											Customer :
-											<span className="text-muted">{showData.customer}</span>
-										</p>
+										<p className="heading ">Status :</p>
+										<span className="text-muted">{showData.status}</span>
 									</div>
 
 									<div className="col">
@@ -97,10 +91,7 @@ function UserMerchantDetails() {
 										</span>
 										<br />
 										<br />
-										<p className="heading">Email Address :</p>
-										<span className="text-center text-muted">
-											{showData.email}
-										</span>
+
 										<br />
 										<br />
 										<p className="heading">Phone Number :</p>

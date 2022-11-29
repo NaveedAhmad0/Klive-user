@@ -47,7 +47,8 @@ const DepositsToMerchant = () => {
 								),
 								email: response.data[i].billFrom,
 								mobile: response.data[i].mobile,
-								status: response.data[i].status,
+								status:
+									response.data[i].status === true ? "Completed" : "Pending",
 								redemptiondate: response.data[i].email,
 							});
 							console.log("res", response.data[i]);

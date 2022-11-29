@@ -28,5 +28,8 @@
     border-radius: 30px;
   
 }
-
+.pwd-icon{
+    position: relative;
+    right: 80px;
+}
 

@@ -8,6 +8,7 @@ import {
 	faCheck,
 	faTimes,
 	faInfoCircle,
+	faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -46,6 +47,7 @@ function UserRegistration() {
 
 	const [errMsg, setErrMsg] = useState("");
 	const [success, setSuccess] = useState(false);
+	const [show, setShow] = useState(false);
 
 	useEffect(() => {
 		userRef.current.focus();
@@ -347,7 +349,7 @@ function UserRegistration() {
 														)}
 													</label>
 													<input
-														type="password"
+														type={show ? "text" : "password"}
 														id="password"
 														onChange={(e) => setPassword(e.target.value)}
 														value={password}
@@ -359,6 +361,12 @@ function UserRegistration() {
 														className={`form-control form-control-lg $ ${styles.registerInputs}`}
 														placeholder="Password"
 													/>
+													{/* <p className="pwd-icon input-group-addon">
+														<FontAwesomeIcon
+															icon={faEyeSlash}
+															onClick={() => setShow(!show)}
+														/>
+													</p> */}
 													{pwdFocus && !validPwd ? (
 														<p
 															id="uidnote"
