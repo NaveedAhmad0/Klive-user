@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import axios from "axios";
-import ClipLoader from "react-spinners/ClipLoader";
+import InputGroup from "react-bootstrap/InputGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function UserLogin() {
 	const [loading, setLoading] = useState(true);
@@ -10,6 +12,8 @@ function UserLogin() {
 	const [password, setPassword] = useState("");
 	const [success, setSuccess] = useState(false);
 	const [errMsg, setErrMsg] = useState("");
+	const [show, setShow] = useState(false);
+
 	// const logindetails = { email, password };
 
 	// const navigate = Redirect();
@@ -79,14 +83,29 @@ function UserLogin() {
 										className="h-auto"
 									/>
 								</Form.Group>
-								<Form.Group className="d-flex search-field">
+								<Form.Group className=" search-field">
 									<Form.Control
-										type="password"
+										type={show ? "text" : "password"}
 										placeholder="Password"
 										onChange={(event) => handleChangeone(event)}
 										value={password}
 										size="lg"
 										className="h-auto"
+									/>
+
+									<FontAwesomeIcon
+										style={{
+											position: "absolute",
+											zIndex: "70",
+											right: "70px",
+											top: "205px",
+											// left: "505px",
+											// bottom: "33px",
+										}}
+										onClick={() => {
+											setShow(!show);
+										}}
+										icon={show ? faEye : faEyeSlash}
 									/>
 								</Form.Group>
 								<Link

@@ -46,7 +46,7 @@ const UserForgotPassword = () => {
 		<div>
 			<div className="d-flex align-items-center auth px-0">
 				<div className="row w-100 mx-0">
-					<div className="col-lg-8 mx-auto">
+					<div className="col-lg-6 mx-auto">
 						<div className="auth-form-light text-left py-5 px-4 px-sm-5">
 							<h4>Forgot Password</h4>
 							<form className="pt-3">

@@ -29,6 +29,7 @@ function UserMerchantDetails() {
 	]);
 
 	const invoiceId = location.state.invoiceId;
+	const statuss = location.state.status;
 
 	useEffect(() => {
 		axios.get(`${API}/merchant/invoice-details/${invoiceId}`).then((res) => {
@@ -39,7 +40,8 @@ function UserMerchantDetails() {
 				mobile: res.data.mobile,
 				billTo: res.data.billTo,
 				billFrom: res.data.billFrom,
-				status: res.data.status === true ? "Complete" : "Pending",
+				// status: res.data.status === true ? "Complete" : "Pending",
+				status: statuss,
 				customer: res.data.customer,
 				createdAt: res.data.createdAt,
 				amount: res.data.amount,
@@ -48,7 +50,7 @@ function UserMerchantDetails() {
 				quantity: res.data.quantity,
 				totalamount: res.data.totalamount,
 				expirydate: res.data.expirydate,
-				qrImage: res.data.qrImage,
+				qrImage: statuss === "expired" ? "QR EXPIRED" : res.data.qrImage,
 				// notes: res.data.note,
 			});
 			console.log("DATA IS ", res.data);
@@ -186,7 +188,7 @@ function UserMerchantDetails() {
 							<div className="qrcode p-3">
 								<img
 									src={`data:image/png;base64,${showData.qrImage}`}
-									alt="QR"
+									alt={statuss === "expired" ? "QR EXPIRED" : "QR"}
 									width={190}
 								/>
 							</div>

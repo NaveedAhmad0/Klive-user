@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import filterFactory, { selectFilter } from "react-bootstrap-table2-filter";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import { useHistory } from "react-router-dom";
 import API from "../../../backend";
@@ -24,44 +25,60 @@ const options = {
 const DepositsToMerchant = () => {
 	const history = useHistory();
 	const [ittems, setItems] = useState([]);
+	const [expired, setExpired] = useState([]);
+	const [pending, setPending] = useState([]);
+	const [paid, setPaid] = useState([]);
+	const [sample, setsample] = useState([]);
+	const [selectType, setSelectType] = useState("");
+
 	const loginMail = localStorage.getItem("email");
-	console.log("items is", ittems);
+	console.log("items is", sample);
+	useEffect(() => {
+		if (selectType === "pending") {
+			setsample(pending);
+		}
+		if (selectType === "expired") {
+			setsample(expired);
+		} else if (selectType === "paid") {
+			setsample(paid);
+		} else {
+			setsample(pending);
+		}
+		const sample2 = [];
+		// console.log("resp", response.data);
+		for (let i = 0; i < sample.length; i += 1) {
+			sample2.push({
+				id: sample[i].t_id,
+				QR: (
+					<img
+						src={`data:image/png;base64,${sample[i].t_qr_image}`}
+						alt="QR"
+						width={190}
+						style={{ borderRadius: "0" }}
+					/>
+				),
+				email: sample[i].t_bill_from,
+				mobile: sample[i].t_mobile,
+				// status: sample[i].t_status === true ? "Completed" : "Pending",
+				status: (selectType ? selectType : "pending").toUpperCase(),
+			});
+		}
+		setItems(sample2);
+	}, [expired, paid, pending, sample, selectType]);
 	useEffect(() => {
 		const getUserDetails = async () => {
 			try {
 				await axios
 					.get(`${API}/user/ListOfInvoice?email=${loginMail}`)
 					.then((response) => {
-						const sample = [];
-
-						for (let i = 0; i < response.data.length; i += 1) {
-							sample.push({
-								id: response.data[i].id,
-								QR: (
-									<img
-										src={`data:image/png;base64,${response.data[i].qrImage}`}
-										alt="QR"
-										width={190}
-										style={{ borderRadius: "0" }}
-									/>
-								),
-								email: response.data[i].billFrom,
-								mobile: response.data[i].mobile,
-								status:
-									response.data[i].status === true ? "Completed" : "Pending",
-								redemptiondate: response.data[i].email,
-							});
-							console.log("res", response.data[i]);
-						}
-						setItems(sample);
-
-						// console.log(response.data[3].id);
+						setExpired(response.data.expired);
+						setPaid(response.data.paid);
+						setPending(response.data.pending);
 					});
 			} catch (error) {
 				console.log(error);
 			}
 		};
-
 		(async () => await getUserDetails())();
 	}, []);
 
@@ -98,6 +115,17 @@ const DepositsToMerchant = () => {
 		{
 			dataField: "status",
 			text: "Status",
+			style: {
+				fontWeight: 600,
+				color:
+					selectType === "pending"
+						? "orange"
+						: selectType === "paid"
+						? "green"
+						: selectType === "expired"
+						? "red"
+						: "orange",
+			},
 			headerClasses: "deal-header",
 		},
 		{
@@ -113,7 +141,6 @@ const DepositsToMerchant = () => {
 	const customFunction = (cellContent, row) => {
 		return (
 			<h5>
-				{/* <Link to="/admin/getUserProfile"> */}
 				<button
 					alt="issueimageload"
 					className="cursor-pointer btn btn-success"
@@ -122,25 +149,18 @@ const DepositsToMerchant = () => {
 						// eslint-disable-next-line no-restricted-globals
 						history.push({
 							pathname: "/user/user-merchant-datails",
-							state: { invoiceId: row.id },
+							state: { invoiceId: row.id, status: row.status },
 						});
-						// console.log(row.email);
 					}}>
 					view
 				</button>
-				{/* </Link> */}
 			</h5>
 		);
 	};
-	console.log("list of item", ittems);
-	// list.map((list)=>{})
 
 	return (
 		<div>
 			<h2 className="text-primary bw-bold">Users</h2>
-			{/* {ittems.map((item) => (
-				<AdminTable key={item.id} list={item} />
-			))} */}
 			<div className="row">
 				<div className="col-md-12">
 					<div className="row">
@@ -155,14 +175,25 @@ const DepositsToMerchant = () => {
 											search>
 											{(props) => (
 												<div>
-													{/* <h3>Inputt something at below input field:</h3> */}
-													<SearchBar
-														{...props.searchProps}
-														className="custome-search-field"
-														style={{ color: "white" }}
-														delay={500}
-														placeholder="Search..."
-													/>
+													<div className="container d-flex justify-content-between">
+														<SearchBar
+															{...props.searchProps}
+															className="custome-search-field"
+															style={{ color: "white" }}
+															delay={500}
+															placeholder="Search..."
+														/>
+														<div style={{ width: "150px" }}>
+															<select
+																className="form-select "
+																onChange={(e) => setSelectType(e.target.value)}>
+																{/* <option>select</option> */}
+																<option value={"pending"}>Pending</option>
+																<option value={"expired"}>Expired </option>
+																<option value={"paid"}> Paid</option>
+															</select>
+														</div>
+													</div>
 													<hr />
 													{ittems.length > 0 ? (
 														<BootstrapTable

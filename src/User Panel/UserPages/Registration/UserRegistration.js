@@ -8,6 +8,7 @@ import {
 	faCheck,
 	faTimes,
 	faInfoCircle,
+	faEye,
 	faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,6 +49,7 @@ function UserRegistration() {
 	const [errMsg, setErrMsg] = useState("");
 	const [success, setSuccess] = useState(false);
 	const [show, setShow] = useState(false);
+	const [show1, setShow1] = useState(false);
 
 	useEffect(() => {
 		userRef.current.focus();
@@ -361,12 +363,20 @@ function UserRegistration() {
 														className={`form-control form-control-lg $ ${styles.registerInputs}`}
 														placeholder="Password"
 													/>
-													{/* <p className="pwd-icon input-group-addon">
-														<FontAwesomeIcon
-															icon={faEyeSlash}
-															onClick={() => setShow(!show)}
-														/>
-													</p> */}
+													<FontAwesomeIcon
+														style={{
+															position: "absolute",
+															zIndex: "70",
+															right: "30px",
+															top: "55px",
+															// left: "505px",
+															// bottom: "33px",
+														}}
+														onClick={() => {
+															setShow(!show);
+														}}
+														icon={show ? faEye : faEyeSlash}
+													/>
 													{pwdFocus && !validPwd ? (
 														<p
 															id="uidnote"
@@ -414,7 +424,7 @@ function UserRegistration() {
 														)}
 													</label>
 													<input
-														type="password"
+														type={show1 ? "text" : "password"}
 														id="Confirm-password"
 														onChange={(e) => setMatchPwd(e.target.value)}
 														value={matchPwd}
@@ -425,6 +435,20 @@ function UserRegistration() {
 														onBlur={() => setMatchFocus(false)}
 														className={`form-control form-control-lg $ ${styles.registerInputs}`}
 														placeholder="Confirm Password"
+													/>
+													<FontAwesomeIcon
+														style={{
+															position: "absolute",
+															zIndex: "70",
+															right: "30px",
+															top: "55px",
+															// left: "505px",
+															// bottom: "33px",
+														}}
+														onClick={() => {
+															setShow1(!show1);
+														}}
+														icon={show1 ? faEye : faEyeSlash}
 													/>
 													{matchFocus && !validMatch ? (
 														<p className="text-danger">
