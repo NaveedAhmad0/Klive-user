@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const ResetPassword = () => {
 	const [newPassword, setNewPassword] = useState("");
 	const [oldPassword, setOldPassword] = useState("");
 	const [matchPassword, setMatchPassword] = useState("");
 	const [success, setSuccess] = useState(false);
+	const [show, setShow] = useState(false);
 
 	const resetMail = localStorage.getItem("email");
 
@@ -61,33 +62,75 @@ const ResetPassword = () => {
 							<form className="pt-3">
 								<div className="form-group">
 									<input
-										type="password"
+										type={show ? "text" : "password"}
 										className="form-control form-control-lg"
 										id="exampleInputEmail1"
 										onChange={(e) => setOldPassword(e.target.value)}
 										value={oldPassword}
 										placeholder="Old Password"
 									/>
+									<FontAwesomeIcon
+										style={{
+											position: "absolute",
+											zIndex: "70",
+											right: "70px",
+											top: "115px",
+											// left: "505px",
+											// bottom: "33px",
+										}}
+										onClick={() => {
+											setShow(!show);
+										}}
+										icon={show ? faEye : faEyeSlash}
+									/>
 								</div>
 								<div className="form-group">
 									<input
-										type="password"
+										type={show ? "text" : "password"}
 										className="form-control form-control-lg"
 										id="exampleInputEmail1"
 										onChange={(e) => setNewPassword(e.target.value)}
 										value={newPassword}
 										placeholder="New password"
 									/>
+									{/* <FontAwesomeIcon
+										style={{
+											position: "absolute",
+											zIndex: "70",
+											right: "70px",
+											top: "190px",
+											// left: "505px",
+											// bottom: "33px",
+										}}
+										onClick={() => {
+											setShow(!show);
+										}}
+										icon={show ? faEye : faEyeSlash}
+									/> */}
 								</div>
 								<div className="form-group">
 									<input
-										type="password"
+										type={show ? "text" : "password"}
 										className="form-control form-control-lg"
 										id="password"
-										placeholder="Match Password"
+										placeholder="Confirm New Password"
 										onChange={(e) => setMatchPassword(e.target.value)}
 										value={matchPassword}
 									/>
+									{/* <FontAwesomeIcon
+										style={{
+											position: "absolute",
+											zIndex: "70",
+											right: "70px",
+											top: "265px",
+											// left: "505px",
+											// bottom: "33px",
+										}}
+										onClick={() => {
+											setShow(!show);
+										}}
+										icon={show ? faEye : faEyeSlash}
+									/> */}
 								</div>
 
 								<div className="mt-3">

@@ -26,10 +26,11 @@
       }
 
       img {
-        width: calc(#{$sidebar-width-lg} - 80px);
+        width: calc(200px - 80px);
         max-width: 100%;
         height: 48px;
-        margin: auto;
+        margin-left: auto;
+        justify-self:flex-start;
         vertical-align: middle;
       }
     }

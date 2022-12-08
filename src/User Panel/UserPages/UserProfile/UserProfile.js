@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./userprofile.module.css";
 import Compress from "compress.js";
+import DatePicker from "react-datepicker";
 import ClipLoader from "react-spinners/ClipLoader";
+
 const UserProfile = () => {
 	const compress = new Compress();
-	//Get profile
 	const [success, setSuccess] = useState(false);
 	const [loading, setLoading] = useState(true);
-	// const [fields, setFields] = useState({});
 	const [showData, setShowData] = useState([
 		{
 			email: "",
@@ -32,7 +32,7 @@ const UserProfile = () => {
 			other: "",
 			InitialShop: "",
 			firstName: "",
-
+			merchantEmail: [],
 			personType: "",
 			shopType: "",
 			creditCard: true,
@@ -94,6 +94,7 @@ const UserProfile = () => {
 					InitialShop: res.data.user.InitialShop,
 					yearOfBirth: res.data.user.yearOfBirth,
 					dayOfBirth: res.data.user.dayOfBirth,
+					merchantEmail: res.data.user.merchantEmail,
 					district: res.data.user.district,
 					surName: res.data.user.surName,
 					province: res.data.user.province,
@@ -208,7 +209,7 @@ const UserProfile = () => {
 	console.log(showData.shopType);
 	return (
 		<div className="col-12 grid-margin">
-			<h4 className="card-title">user Personal Information</h4>
+			<h4 className="card-title">User Information</h4>
 			{loading ? (
 				<div className="row" style={{ height: "500px" }}>
 					<div className="col-12 text-center my-auto">
@@ -222,7 +223,7 @@ const UserProfile = () => {
 						<div className="row mt-5">
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<form className="needs-validation" novalidate>
-									<div className="form-group">
+									{/* <div className="form-group">
 										<label className={styles.userLabel}>merchant ID</label>
 										<input
 											type="email"
@@ -230,30 +231,32 @@ const UserProfile = () => {
 											className={`form-control ${styles.userInputs}`}
 											placeholder={"123456"}
 										/>
-									</div>
+									</div> */}
 									<div className="form-group">
 										<label
 											for="validationDefault01"
 											className={styles.userLabel}>
-											merchant name
+											Assigned merchant
 										</label>
 										<input
 											type="text"
-											name="userName"
+											name="merchantEmail"
+											disabled
 											onChange={(e) => {
 												setShowData({
 													...showData,
-													userName: e.target.value,
+													merchantEmail: e.target.value,
 												});
 											}}
 											id="validationCustom01"
 											required
-											value={showData.userName}
+											value={showData.merchantEmail}
 											className={`form-control ${styles.userInputs}`}
 											placeholder="name"
 										/>
 
-										{fields["userName"] == null || fields["userName"] == "" ? (
+										{fields["merchantEmail"] == null ||
+										fields["merchantEmail"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
@@ -264,7 +267,7 @@ const UserProfile = () => {
 
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<form>
-									<div className="form-group">
+									{/* <div className="form-group">
 										<label className={styles.userLabel}>
 											{" "}
 											merchant name english
@@ -275,7 +278,7 @@ const UserProfile = () => {
 											className={`form-control ${styles.userInputs}`}
 											placeholder="merchant name english"
 										/>
-									</div>
+									</div> */}
 									<div className="form-group">
 										<label className={styles.userLabel}>Email address</label>
 										<input
@@ -301,7 +304,7 @@ const UserProfile = () => {
 						</div>
 
 						<div>
-							<label className={styles.userLabel}> person type</label>
+							<label className={styles.userLabel}>Entity Type</label>
 
 							<div style={{ display: "flex" }}>
 								<div class="form-check form-check-inline">
@@ -355,7 +358,7 @@ const UserProfile = () => {
 
 						<div class="form-group">
 							<label className={styles.userLabel}>
-								Intial shop(up to 10 characters)
+								Shop Initials(up to 10 characters)
 							</label>
 							<input
 								type="email"
@@ -381,7 +384,7 @@ const UserProfile = () => {
 						<div className="row">
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div className="form-group">
-									<label className={styles.userLabel}>first name</label>
+									<label className={styles.userLabel}>First name</label>
 									<input
 										type="year"
 										name="firstName"
@@ -406,7 +409,7 @@ const UserProfile = () => {
 
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<div className="form-group">
-									<label className={styles.userLabel}>sur name</label>
+									<label className={styles.userLabel}>Last name</label>
 									<input
 										type="text"
 										onChange={(e) => {
@@ -434,7 +437,7 @@ const UserProfile = () => {
 								<div className="form-group">
 									<label className={styles.userLabel}>year of birth</label>
 									<input
-										type="number"
+										type="year"
 										name="yearOfBirth"
 										onChange={(e) => {
 											setShowData({
@@ -444,7 +447,6 @@ const UserProfile = () => {
 										}}
 										value={showData.yearOfBirth}
 										className={`form-control ${styles.userInputs}`}
-										// placeholder={yearOfBirth}
 									/>
 
 									{fields["yearOfBirth"] == null ||
@@ -558,7 +560,7 @@ const UserProfile = () => {
 								<form className="d-flex justify-content-between">
 									<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 										<div className="form-group ">
-											<label className={styles.userLabel}>provience</label>
+											<label className={styles.userLabel}>Province</label>
 											<input
 												type="email"
 												onChange={(e) => {
@@ -569,7 +571,6 @@ const UserProfile = () => {
 												}}
 												value={showData.province}
 												className={`form-control ${styles.userInputs}`}
-												// placeholder={province}
 											/>
 
 											{fields["province"] == null ||
@@ -598,14 +599,14 @@ const UserProfile = () => {
 												// placeholder={subDivision}
 											/>
 
-											{fields["subDivision"] == null ||
+											{/* {fields["subDivision"] == null ||
 											fields["subDivision"] == "" ? (
 												<span className="text-danger">
 													Field can't be empty
 												</span>
 											) : (
 												""
-											)}
+											)} */}
 										</div>
 									</div>
 								</form>
@@ -635,7 +636,7 @@ const UserProfile = () => {
 										)}
 									</div>
 									<div className="form-group col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-										<label className={styles.userLabel}>pincode</label>
+										<label className={styles.userLabel}>Postal Code</label>
 										<input
 											type="number"
 											onChange={(e) => {
@@ -1058,7 +1059,7 @@ const UserProfile = () => {
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<form>
 									<div className="form-group">
-										<label className={styles.userLabel}>web site</label>
+										<label className={styles.userLabel}>Website</label>
 										<input
 											type="text"
 											name="website"
@@ -1080,7 +1081,7 @@ const UserProfile = () => {
 										)}
 									</div>
 									<div className="form-group">
-										<label className={styles.userLabel}>linked in</label>
+										<label className={styles.userLabel}>linkedin</label>
 										<input
 											type="text"
 											name="linkedin"
@@ -1095,34 +1096,11 @@ const UserProfile = () => {
 											// placeholder={linkedin}
 										/>
 
-										{fields["linkedin"] == null || fields["linkedin"] == "" ? (
+										{/* {fields["linkedin"] == null || fields["linkedin"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
-									</div>
-
-									<div className="form-group">
-										<label className={styles.userLabel}>other</label>
-										<input
-											type="text"
-											name="other"
-											onChange={(e) => {
-												setShowData({
-													...showData,
-													other: e.target.value,
-												});
-											}}
-											value={showData.other}
-											className={`form-control ${styles.userInputs}`}
-											// placeholder={other}
-										/>
-
-										{fields["other"] == null || fields["other"] == "" ? (
-											<span className="text-danger">Field can't be empty</span>
-										) : (
-											""
-										)}
+										)} */}
 									</div>
 								</form>
 							</div>
@@ -1145,11 +1123,11 @@ const UserProfile = () => {
 											// placeholder={facebook}
 										/>
 
-										{fields["facebook"] == null || fields["facebook"] == "" ? (
+										{/* {fields["facebook"] == null || fields["facebook"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 									<div className="form-group">
 										<label className={styles.userLabel}>instagram</label>
@@ -1183,7 +1161,7 @@ const UserProfile = () => {
 								<form>
 									<div className="form-group">
 										<label className={styles.userLabel}>
-											copy of id card (Up to 5mb)
+											Passport / ID Card (Up to 5mb)
 										</label>
 										<input
 											type="file"
@@ -1214,7 +1192,7 @@ const UserProfile = () => {
 									</div>
 
 									<div className="form-group">
-										<label className={styles.userLabel}>book bank</label>
+										<label className={styles.userLabel}>Bank Book</label>
 										<input
 											type="file"
 											onChange={(e) => {
@@ -1236,15 +1214,15 @@ const UserProfile = () => {
 											placeholder="file"
 										/>
 
-										{fields["bankBook"] == null || fields["bankBook"] == "" ? (
+										{/* {fields["bankBook"] == null || fields["bankBook"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 
 									<div className="form-group">
-										<label className={styles.userLabel}>company</label>
+										<label className={styles.userLabel}>company name</label>
 										<input
 											type="text"
 											onChange={(e) => {
@@ -1258,15 +1236,17 @@ const UserProfile = () => {
 											placeholder="company"
 										/>
 
-										{fields["company"] == null || fields["company"] == "" ? (
+										{/* {fields["company"] == null || fields["company"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 
 									<div className="form-group">
-										<label className={styles.userLabel}>bank account</label>
+										<label className={styles.userLabel}>
+											Bank Account Number
+										</label>
 										<input
 											type="number"
 											onChange={(e) => {
@@ -1400,7 +1380,7 @@ const UserProfile = () => {
 									</div>
 
 									<div className="form-group">
-										<label className={styles.userLabel}>Bank</label>
+										<label className={styles.userLabel}>Bank Name</label>
 										<input
 											type="text"
 											onChange={(e) => {
@@ -1433,11 +1413,11 @@ const UserProfile = () => {
 											className={`form-control ${styles.userInputs}`}
 											placeholder="Rnf Code"
 										/>
-										{fields["rnfCode"] == null || fields["rnfCode"] == "" ? (
+										{/* {fields["rnfCode"] == null || fields["rnfCode"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 
 									<div className="form-group">
@@ -1498,7 +1478,7 @@ const UserProfile = () => {
 							}
 							onClick={(event) => onSubmit(event)}
 							className={`btn ${styles.userBtn}`}>
-							Finish
+							Save
 						</button>
 					</div>
 				</div>

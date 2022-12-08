@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import axios from "axios";
-import InputGroup from "react-bootstrap/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Toast from "react-bootstrap/Toast";
+// import ToastContainer from "react-bootstrap/ToastContainer";
 
 function UserLogin() {
 	const [loading, setLoading] = useState(true);
@@ -66,12 +67,16 @@ function UserLogin() {
 			<div className="d-flex align-items-center auth px-0">
 				<div className="row w-100 mx-0">
 					<div className="col-lg-6 mx-auto">
-						<div className="auth-form-light text-left py-5 px-4 px-sm-5">
+						<div className="auth-form-light text-left py-5 px-4 px-sm-5 ">
 							<div className="brand-logo">
-								<h3 className={!errMsg ? "errMsg" : "text-danger"}>{errMsg}</h3>
 								{/* <img src={require("../../assets/images/logo.svg")} alt="logo" /> */}
+								<h3
+									className={!errMsg ? "errMsg" : "text-danger"}
+									style={{ zIndex: 9999, position: "absolute" }}>
+									{errMsg}
+								</h3>
 							</div>
-							<h4 className="text-primary">Login</h4>
+							<h4 className="text-primary mt-2">Login</h4>
 							<Form className="pt-3">
 								<Form.Group className="d-flex search-field">
 									<Form.Control
@@ -99,8 +104,8 @@ function UserLogin() {
 											zIndex: "70",
 											right: "70px",
 											top: "205px",
-											// left: "505px",
-											// bottom: "33px",
+											// left: "225px",
+											// bottom: "50px",
 										}}
 										onClick={() => {
 											setShow(!show);
@@ -128,7 +133,7 @@ function UserLogin() {
 								<div className="text-center mt-4 font-weight-light">
 									Don't have an account?{" "}
 									<Link to="/user/registration" className="text-primary">
-										SignUp
+										Sign Up
 									</Link>
 								</div>
 							</Form>

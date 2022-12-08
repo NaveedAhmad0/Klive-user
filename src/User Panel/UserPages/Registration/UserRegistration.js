@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
-const MOBILE_REGEX = /^[0-9]{10}$/;
+const MOBILE_REGEX = /^[0-9]{8,}$/;
 
 function UserRegistration() {
 	const userRef = useRef();
@@ -158,7 +158,7 @@ function UserRegistration() {
 										{errMsg}
 									</p> */}
 									<h2 className="text-primary font-weight-bolder mb-5 text-center">
-										User Register
+										User Registeration
 									</h2>
 
 									<div className="row">
@@ -224,7 +224,8 @@ function UserRegistration() {
 											<form>
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														Mobile Number <span className="text-danger">*</span>
+														Mobile Number (exclude + in country code){" "}
+														<span className="text-danger">*</span>
 														{""}
 														{mobileFocus && validMobile ? (
 															<FontAwesomeIcon
@@ -267,7 +268,7 @@ function UserRegistration() {
 																	: "offscreen"
 															}>
 															<FontAwesomeIcon icon={faInfoCircle} />
-															must be 10 digits.
+															must be atleast 8 digits.
 														</p>
 													) : (
 														""
@@ -540,11 +541,20 @@ function UserRegistration() {
 											</button>
 										</div>
 									</div>
-									<div className="text-left mt-4 font-weight-light">
-										Already have an account?{" "}
-										<Link to="/user-pages/login" className="text-primary">
-											Login
-										</Link>
+									<div className="row d-flex justify-content-between">
+										<div className="text-left mt-4 font-weight-light">
+											Already have an account?{" "}
+											<Link to="/user/login" className="text-primary">
+												Login
+											</Link>
+										</div>
+										<div className=" font-weight-light">
+											<a
+												className="text-decoration-none"
+												href="https://klivepay.com/">
+												Go Back to Home Page?
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>

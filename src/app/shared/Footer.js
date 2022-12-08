@@ -9,8 +9,8 @@ class Footer extends Component {
 					<div className="d-sm-flex justify-content-center justify-content-sm-between py-2 w-100">
 						<span className="text-muted text-center text-sm-left d-block d-sm-inline-block">
 							Copyright ©{" "}
-							<a href="https://www.ixiono.com/" rel="ixiono">
-								ixiono.com{" "}
+							<a href="https://klivepay.com/" rel="KlivePay">
+								KlivePay.com{" "}
 							</a>
 							2022
 						</span>

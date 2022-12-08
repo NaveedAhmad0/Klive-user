@@ -38,7 +38,7 @@ const UserForgotPassword = () => {
 	}
 	useEffect(() => {
 		if (success) {
-			alert("You have registered Succesfully!");
+			alert("Password has been successfully reset.");
 		}
 	}, [success]);
 	return (
@@ -74,6 +74,13 @@ const UserForgotPassword = () => {
 									<Link to="/user/login">
 										<h5 className="text-primary">Login?</h5>
 									</Link>
+									<div className=" font-weight-light">
+										<a
+											className=" text-primary text-decoration-none"
+											href="https://klivepay.com/">
+											Go Back to Home Page?
+										</a>
+									</div>
 								</div>
 
 								<div className="mt-3">

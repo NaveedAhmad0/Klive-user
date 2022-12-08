@@ -29,12 +29,12 @@ const Navbar = () => {
 					onClick={() => document.body.classList.toggle("sidebar-icon-only")}>
 					<i className="mdi mdi-menu"></i>
 				</button>
-				<ul className="navbar-nav navbar-nav-left header-links align-self-center">
+				{/* <ul className="navbar-nav navbar-nav-left header-links align-self-center">
 					<li className="nav-item font-weight-semibold d-none  d-md-flex">
 						Help : +050 2992 709
 					</li>
 					<li className="nav-item dropdown language-dropdown"></li>
-				</ul>
+				</ul> */}
 
 				<ul className="navbar-nav navbar-nav-right">
 					{/* <li className="nav-item  nav-profile border-0 pl-4">

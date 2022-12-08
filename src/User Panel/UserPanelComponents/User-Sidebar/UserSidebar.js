@@ -93,7 +93,7 @@ function UserSidebar() {
 				<a
 					className="sidebar-brand brand-logo text-white"
 					href="/user/UserDashboard">
-					<h3>
+					<h3 className="mt-2">
 						{" "}
 						<img
 							className="img-sm "
