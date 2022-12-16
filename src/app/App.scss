@@ -79,3 +79,13 @@
 @import "../assets/styles/footer";
 @import "../assets/styles/layout";
 @import "../assets/styles/settings-panel";
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

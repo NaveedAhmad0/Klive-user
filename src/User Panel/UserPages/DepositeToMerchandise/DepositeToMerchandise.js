@@ -185,6 +185,10 @@ const DepositsToMerchant = () => {
 														/>
 														<div style={{ width: "150px" }}>
 															<select
+																style={{
+																	height: "45px",
+																	border: "1px solid lightgrey",
+																}}
 																className="form-select "
 																onChange={(e) => setSelectType(e.target.value)}>
 																{/* <option>select</option> */}

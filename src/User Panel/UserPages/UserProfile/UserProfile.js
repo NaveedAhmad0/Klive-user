@@ -17,7 +17,7 @@ const UserProfile = () => {
 			yearOfBirth: "",
 			dayOfBirth: "",
 			monthOfBirth: "",
-			showpersonType: "",
+			showentityType: "",
 			mobile: 0,
 			rnfCode: "",
 			address: "",
@@ -33,16 +33,10 @@ const UserProfile = () => {
 			InitialShop: "",
 			firstName: "",
 			merchantEmail: [],
-			personType: "",
+			entityType: "",
 			shopType: "",
-			creditCard: true,
-			weChat: true,
-			livePayment: true,
-			mobileBanking: true,
-			trueWallet: true,
-			shopeePay: true,
-			alone: true,
-
+			mobilePayment: true,
+			bankTransfer: true,
 			company: "",
 			bank: "",
 			bankAccount: 0,
@@ -119,9 +113,9 @@ const UserProfile = () => {
 					company: res.data.user.company,
 					inter: res.data.user.inter,
 					rnfCode: res.data.user.rnfCode,
-					personType: res.data.user.personType,
-					creditCard: res.data.user.creditCard,
-					weChat: res.data.user.weChat,
+					entityType: res.data.user.entityType,
+					bankTransfer: res.data.user.bankTransfer,
+					mobilePayment: res.data.user.mobilePayment,
 					livePayment: res.data.user.livePayment,
 					mobileBanking: res.data.user.mobileBanking,
 					trueWallet: res.data.user.trueWallet,
@@ -132,7 +126,7 @@ const UserProfile = () => {
 				setTimeout(() => {
 					setLoading(false);
 				}, 3000);
-				console.log("DATA IS ", res.data.user);
+				console.log("DATA IS ", res.data.user.surName);
 			});
 	}, []);
 
@@ -146,7 +140,7 @@ const UserProfile = () => {
 					`https://backend.klivepay.com/api/user/update-profile?email=${loginemail}`,
 					JSON.stringify({
 						userName: showData.userName,
-						personType: showData.personType,
+						entityType: showData.entityType,
 						InitialShop: showData.InitialShop,
 						firstName: showData.firstName,
 						surName: showData.surName,
@@ -160,13 +154,13 @@ const UserProfile = () => {
 						subDivision: showData.subDivision,
 						pincode: parseInt(showData.pincode),
 						shopType: showData.shopType,
-						creditCard: showData.creditCard,
+						bankTransfer: showData.bankTransfer,
 
 						copyOfId: showData.copyOfId,
 						logo: showData.logo,
 						bankBook: showData.bankBook,
 						otherDocument: showData.otherDocument,
-						weChat: showData.weChat,
+						mobilePayment: showData.mobilePayment,
 						livePayment: showData.livePayment,
 						mobileBanking: showData.mobileBanking,
 						trueWallet: showData.trueWallet,
@@ -315,12 +309,12 @@ const UserProfile = () => {
 											if (e.target.checked === true) {
 												setShowData({
 													...showData,
-													personType: "individual",
+													entityType: "individual",
 												});
 											}
 										}}
 										checked={
-											showData.personType === "individual" ? true : false
+											showData.entityType === "individual" ? true : false
 										}
 										class="form-check-input"
 										value="individual"
@@ -336,11 +330,11 @@ const UserProfile = () => {
 											if (e.target.checked === true) {
 												setShowData({
 													...showData,
-													personType: "corporate",
+													entityType: "corporate",
 												});
 											}
 										}}
-										checked={showData.personType === "corporate" ? true : false}
+										checked={showData.entityType === "corporate" ? true : false}
 										value="corporate"
 									/>
 									<label className={styles.userLabel}>corporate</label>
@@ -348,7 +342,7 @@ const UserProfile = () => {
 								<br />
 							</div>
 							{/* <br /> */}
-							{fields["personType"] == null || fields["personType"] == "" ? (
+							{fields["entityType"] == null || fields["entityType"] == "" ? (
 								<span className="text-danger">Field can't be empty</span>
 							) : (
 								""
@@ -647,7 +641,7 @@ const UserProfile = () => {
 											}}
 											value={showData.pincode}
 											className={`form-control ${styles.userInputs}`}
-											placeholder="123456"
+											placeholder="Postal code"
 										/>
 
 										{fields["pincode"] == null || fields["pincode"] == "" ? (
@@ -700,16 +694,15 @@ const UserProfile = () => {
 										/>
 										<label className={styles.userLabel}>website</label>
 									</div>
-
-									<br />
-									{fields["shopType"] == null ? (
-										<span className="text-danger">Field can't be empty</span>
-									) : (
-										""
-									)}
 								</div>
 
-								<label className={styles.userLabel}>live payment</label>
+								{fields["shopType"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
+
+								{/* <label className={styles.userLabel}>live payment</label>
 								<div style={{ display: "flex" }}>
 									<div className="form-check form-check-inline">
 										<input
@@ -805,10 +798,10 @@ const UserProfile = () => {
 									) : (
 										""
 									)}
-								</div>
+								</div> */}
 							</div>
 							<div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-								<label className={styles.userLabel}>credit card</label>
+								<label className={styles.userLabel}>Bank Transfer</label>
 								<div style={{ display: "flex" }}>
 									<div className="form-check form-check-inline">
 										<input
@@ -818,14 +811,14 @@ const UserProfile = () => {
 												if (e.target.checked === true) {
 													setShowData({
 														...showData,
-														creditCard: true,
+														bankTransfer: true,
 													});
 												}
 											}}
-											name="creditcard"
-											value={showData.creditCard}
-											defaultChecked={showData.creditCard === false}
-											checked={showData.creditCard === true ? true : false}
+											name="bankTransfer"
+											value={showData.bankTransfer}
+											defaultChecked={showData.bankTransfer === false}
+											checked={showData.bankTransfer === true ? true : false}
 										/>
 										<label className={styles.userLabel}>yes</label>
 									</div>
@@ -834,30 +827,28 @@ const UserProfile = () => {
 											className="form-check-input"
 											type="radio"
 											onChange={(e) => {
-												if (e.target.checked === false) {
+												if (e.target.checked === true) {
 													setShowData({
 														...showData,
-														creditCard: false,
+														bankTransfer: false,
 													});
 												}
 											}}
-											name="creditcard"
+											name="bankTransfer"
 											value="no"
-											defaultChecked={showData.creditCard === false}
-											checked={showData.creditCard === false ? true : false}
+											defaultChecked={showData.bankTransfer === false}
+											checked={showData.bankTransfer === false ? true : false}
 										/>
 										<label className={styles.userLabel}>no</label>
 									</div>
-
-									<br />
-									{fields["creditCard"] == null ? (
-										<span className="text-danger">Field can't be empty</span>
-									) : (
-										""
-									)}
 								</div>
+								{fields["bankTransfer"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 
-								<label className={styles.userLabel}>mobile banking</label>
+								{/* <label className={styles.userLabel}>mobile banking</label>
 								<div style={{ display: "flex" }}>
 									<div className="form-check form-check-inline">
 										<input
@@ -946,17 +937,17 @@ const UserProfile = () => {
 										/>
 										<label className={styles.userLabel}>no</label>
 									</div>
-								</div>
-
+								</div> */}
+								{/* 
 								<br />
 								{fields["alone"] == null ? (
 									<span className="text-danger">Field can't be empty</span>
 								) : (
 									""
-								)}
+								)} */}
 							</div>
 							<div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-								<label className={styles.userLabel}>we chat payment</label>
+								<label className={styles.userLabel}>Mobile payment</label>
 								<div style={{ display: "flex" }}>
 									<div className="form-check form-check-inline">
 										<input
@@ -966,13 +957,13 @@ const UserProfile = () => {
 												if (e.target.checked === true) {
 													setShowData({
 														...showData,
-														weChat: true,
+														mobilePayment: true,
 													});
 												}
 											}}
-											defaultChecked={showData.weChat === false}
-											name="wechat"
-											checked={showData.weChat === true ? true : false}
+											defaultChecked={showData.mobilePayment === false}
+											name="mobilePayment"
+											checked={showData.mobilePayment === true ? true : false}
 											value="yes"
 										/>
 										<label className={styles.userLabel}>yes</label>
@@ -981,31 +972,29 @@ const UserProfile = () => {
 										<input
 											className="form-check-input"
 											type="radio"
-											name="wechat"
+											name="mobilePayment"
 											onChange={(e) => {
 												if (e.target.checked === true) {
 													setShowData({
 														...showData,
-														weChat: false,
+														mobilePayment: false,
 													});
 												}
 											}}
-											defaultChecked={showData.weChat === false}
-											checked={showData.weChat === false ? true : false}
+											defaultChecked={showData.mobilePayment === false}
+											checked={showData.mobilePayment === false ? true : false}
 											value="no"
 										/>
 										<label className={styles.userLabel}>no</label>
 									</div>
-
-									<br />
-									{fields["weChat"] == null ? (
-										<span className="text-danger">Field can't be empty</span>
-									) : (
-										""
-									)}
 								</div>
+								{fields["mobilePayment"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 
-								<label className={styles.userLabel}>true wallet</label>
+								{/* <label className={styles.userLabel}>true wallet</label>
 								<div style={{ display: "flex" }}>
 									<div className="form-check form-check-inline">
 										<input
@@ -1051,11 +1040,11 @@ const UserProfile = () => {
 									) : (
 										""
 									)}
-								</div>
+								</div> */}
 							</div>
 						</div>
 
-						<div className="row mt-5">
+						{/* <div className="row mt-5">
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<form>
 									<div className="form-group">
@@ -1071,7 +1060,6 @@ const UserProfile = () => {
 											}}
 											value={showData.website}
 											className={`form-control ${styles.userInputs}`}
-											// placeholder={website}
 										/>
 
 										{fields["website"] == null || fields["website"] == "" ? (
@@ -1096,11 +1084,11 @@ const UserProfile = () => {
 											// placeholder={linkedin}
 										/>
 
-										{/* {fields["linkedin"] == null || fields["linkedin"] == "" ? (
+										{fields["linkedin"] == null || fields["linkedin"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)} */}
+										)}
 									</div>
 								</form>
 							</div>
@@ -1123,11 +1111,11 @@ const UserProfile = () => {
 											// placeholder={facebook}
 										/>
 
-										{/* {fields["facebook"] == null || fields["facebook"] == "" ? (
+										{fields["facebook"] == null || fields["facebook"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)} */}
+										)}
 									</div>
 									<div className="form-group">
 										<label className={styles.userLabel}>instagram</label>
@@ -1154,7 +1142,7 @@ const UserProfile = () => {
 									</div>
 								</form>
 							</div>
-						</div>
+						</div> */}
 
 						<div className="row mt-5">
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
