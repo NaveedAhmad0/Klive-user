@@ -249,12 +249,12 @@ const UserProfile = () => {
 											placeholder="name"
 										/>
 
-										{fields["merchantEmail"] == null ||
+										{/* {fields["merchantEmail"] == null ||
 										fields["merchantEmail"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 								</form>
 							</div>
@@ -1044,7 +1044,7 @@ const UserProfile = () => {
 							</div>
 						</div>
 
-						{/* <div className="row mt-5">
+						<div className="row mt-5">
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<form>
 									<div className="form-group">
@@ -1062,11 +1062,11 @@ const UserProfile = () => {
 											className={`form-control ${styles.userInputs}`}
 										/>
 
-										{fields["website"] == null || fields["website"] == "" ? (
+										{/* {fields["website"] == null || fields["website"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 									<div className="form-group">
 										<label className={styles.userLabel}>linkedin</label>
@@ -1084,11 +1084,11 @@ const UserProfile = () => {
 											// placeholder={linkedin}
 										/>
 
-										{fields["linkedin"] == null || fields["linkedin"] == "" ? (
+										{/* {fields["linkedin"] == null || fields["linkedin"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 								</form>
 							</div>
@@ -1111,11 +1111,11 @@ const UserProfile = () => {
 											// placeholder={facebook}
 										/>
 
-										{fields["facebook"] == null || fields["facebook"] == "" ? (
+										{/* {fields["facebook"] == null || fields["facebook"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 									<div className="form-group">
 										<label className={styles.userLabel}>instagram</label>
@@ -1133,16 +1133,16 @@ const UserProfile = () => {
 											// placeholder={instagram}
 										/>
 
-										{fields["instagram"] == null ||
+										{/* {fields["instagram"] == null ||
 										fields["instagram"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
 								</form>
 							</div>
-						</div> */}
+						</div>
 
 						<div className="row mt-5">
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -1210,28 +1210,6 @@ const UserProfile = () => {
 									</div>
 
 									<div className="form-group">
-										<label className={styles.userLabel}>company name</label>
-										<input
-											type="text"
-											onChange={(e) => {
-												setShowData({
-													...showData,
-													company: e.target.value,
-												});
-											}}
-											value={showData.company}
-											className={`form-control ${styles.userInputs}`}
-											placeholder="company"
-										/>
-
-										{/* {fields["company"] == null || fields["company"] == "" ? (
-											<span className="text-danger">Field can't be empty</span>
-										) : (
-											""
-										)} */}
-									</div>
-
-									<div className="form-group">
 										<label className={styles.userLabel}>
 											Bank Account Number
 										</label>
@@ -1256,6 +1234,27 @@ const UserProfile = () => {
 										)}
 									</div>
 									<div className="form-group">
+										<label className={styles.userLabel}>Company Name</label>
+										<input
+											type="text"
+											onChange={(e) => {
+												setShowData({
+													...showData,
+													company: e.target.value,
+												});
+											}}
+											value={showData.company}
+											className={`form-control ${styles.userInputs}`}
+											placeholder="company"
+										/>
+
+										{/* {fields["company"] == null || fields["company"] == "" ? (
+											<span className="text-danger">Field can't be empty</span>
+										) : (
+											""
+										)} */}
+									</div>
+									<div className="form-group">
 										<label className={styles.userLabel}>domestic</label>
 										<input
 											type="text"
@@ -1270,13 +1269,13 @@ const UserProfile = () => {
 											placeholder="Domestic"
 										/>
 
-										{fields["domestic"] == null || fields["domestic"] == "" ? (
+										{/* {fields["domestic"] == null || fields["domestic"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
-
+									{/* 
 									<div className="form-group">
 										<label className={styles.userLabel}>rate of QR code</label>
 										<input
@@ -1298,42 +1297,12 @@ const UserProfile = () => {
 										) : (
 											""
 										)}
-									</div>
+									</div> */}
 								</form>
 							</div>
 
 							<div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
 								<form>
-									<div className="form-group">
-										<label className={styles.userLabel}>logo</label>
-										<input
-											type="file"
-											onChange={(e) => {
-												const files = [...e.target.files];
-												compress
-													.compress(files, {
-														size: 1,
-														quality: 0.4,
-														maxWidth: 500,
-														maxHeight: 500,
-														resize: true,
-														rotate: false,
-													})
-													.then((data) => {
-														showData.logo = data[0].prefix + data[0].data;
-													});
-											}}
-											// value={showData.logo}
-											className={`form-control ${styles.userInputs}`}
-											placeholder="file"
-										/>
-
-										{fields["logo"] == null || fields["logo"] == "" ? (
-											<span className="text-danger">Field can't be empty</span>
-										) : (
-											""
-										)}
-									</div>
 									<div className="form-group">
 										<label className={styles.userLabel}>other document</label>
 										<input
@@ -1366,7 +1335,36 @@ const UserProfile = () => {
 											""
 										)}
 									</div>
-
+									<div className="form-group">
+										<label className={styles.userLabel}>logo</label>
+										<input
+											type="file"
+											onChange={(e) => {
+												const files = [...e.target.files];
+												compress
+													.compress(files, {
+														size: 1,
+														quality: 0.4,
+														maxWidth: 500,
+														maxHeight: 500,
+														resize: true,
+														rotate: false,
+													})
+													.then((data) => {
+														showData.logo = data[0].prefix + data[0].data;
+													});
+											}}
+											// value={showData.logo}
+											className={`form-control ${styles.userInputs}`}
+											placeholder="file"
+										/>
+										{/* 
+										{fields["logo"] == null || fields["logo"] == "" ? (
+											<span className="text-danger">Field can't be empty</span>
+										) : (
+											""
+										)} */}
+									</div>
 									<div className="form-group">
 										<label className={styles.userLabel}>Bank Name</label>
 										<input
@@ -1409,7 +1407,7 @@ const UserProfile = () => {
 									</div>
 
 									<div className="form-group">
-										<label className={styles.userLabel}>inter</label>
+										<label className={styles.userLabel}>International</label>
 										<input
 											type="text"
 											onChange={(e) => {
@@ -1423,13 +1421,13 @@ const UserProfile = () => {
 											placeholder="Inter"
 										/>
 
-										{fields["inter"] == null || fields["inter"] == "" ? (
+										{/* {fields["inter"] == null || fields["inter"] == "" ? (
 											<span className="text-danger">Field can't be empty</span>
 										) : (
 											""
-										)}
+										)} */}
 									</div>
-									<div className="form-group">
+									{/* <div className="form-group">
 										<label className={styles.userLabel}>rate of bar code</label>
 										<input
 											type="text"
@@ -1450,7 +1448,7 @@ const UserProfile = () => {
 										) : (
 											""
 										)}
-									</div>
+									</div> */}
 								</form>
 							</div>
 						</div>

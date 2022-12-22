@@ -202,7 +202,7 @@ function ChartJs({ TotalPaid }) {
                   </nav>
               </div> */}
 					<div className="row">
-						<div className="col-md-6 grid-margin stretch-card">
+						<div className="col-md-8 grid-margin stretch-card">
 							<div className="card">
 								<div className="card-body">
 									{/* <h4 className="card-title">Line Chart</h4>
@@ -300,14 +300,14 @@ function ChartJs({ TotalPaid }) {
 								</div>
 							</div>
 						</div>
-						<div className="col-md-6 grid-margin stretch-card">
+						{/* <div className="col-md-6 grid-margin stretch-card">
 							<div className="card">
 								<div className="card-body">
 									<h4 className="card-title">Amount</h4>
 									<Bar data={data} options={options} />
 								</div>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

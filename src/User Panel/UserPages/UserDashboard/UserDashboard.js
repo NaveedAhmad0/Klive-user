@@ -166,12 +166,11 @@ function UserDashboard() {
 							className="card-header text-white"
 							style={{ backgroundColor: "#401AAB" }}>
 							<h5>
-								$ {TotalPaid}
-								<br />
 								Transaction Total
+								<br />$ {TotalPaid}
 							</h5>
 						</div>
-						<div className="card-footer bg-white">
+						{/* <div className="card-footer bg-white">
 							<div className="row">
 								<div className="col">
 									<p>Success</p>
@@ -184,7 +183,7 @@ function UserDashboard() {
 									<p>&nbsp;</p>
 								</div>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 				<div className="col-md-3">
@@ -193,17 +192,16 @@ function UserDashboard() {
 							className="card-header text-white"
 							style={{ backgroundColor: "#65AC23" }}>
 							<h5>
-								$ {TotalPaid}
-								<br />
-								Trans Amount
+								Transaction Amount
+								<br />$ {TotalPaid}
 							</h5>
 						</div>
-						<div className="card-footer bg-white">
+						{/* <div className="card-footer bg-white">
 							<div className="row">
 								<div className="col">
 									<p>Success</p>
-									<p>Fail</p>
-									<p>Trans AVG</p>
+									<p>Failed</p>
+									<p>Transaction AVG</p>
 								</div>
 								<div className="col">
 									<p>0.00</p>
@@ -211,7 +209,7 @@ function UserDashboard() {
 									<p>0.00</p>
 								</div>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 				<div className="col-md-3">
@@ -220,12 +218,11 @@ function UserDashboard() {
 							className="card-header text-white"
 							style={{ backgroundColor: "#AB4627" }}>
 							<h5>
-								$ {TotalPaid}
-								<br />
 								Customer Total
+								<br />$ {TotalPaid}
 							</h5>
 						</div>
-						<div className="card-footer bg-white">
+						{/* <div className="card-footer bg-white">
 							<div className="row">
 								<div className="col">
 									<p>Amount</p>
@@ -238,7 +235,7 @@ function UserDashboard() {
 									<p>0.00</p>
 								</div>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 				<div className="col-md-3">
@@ -247,12 +244,11 @@ function UserDashboard() {
 							className="card-header text-white"
 							style={{ backgroundColor: "#AB1A8B" }}>
 							<h5>
-								$ {TotalPaid}
-								<br />
 								Transaction
+								<br />$ {TotalPaid}
 							</h5>
 						</div>
-						<div className="card-footer bg-white">
+						{/* <div className="card-footer bg-white">
 							<div className="row">
 								<div className="col align-items-left">
 									<p>Trans Void</p>
@@ -265,7 +261,7 @@ function UserDashboard() {
 									<p>&nbsp;</p>
 								</div>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>
